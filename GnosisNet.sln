@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{F8427025-8313-43A6-99DB-AB9686D37892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnosisNet.API", "GnosisNet.API\GnosisNet.API\GnosisNet.API.csproj", "{119DC3DA-C9D6-4312-921B-3BE7B3D43D58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnosisNet.Data", "GnosisNet.Data\GnosisNet.Data.csproj", "{CF4ED290-E5D1-478D-B025-1D9BB444092A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnosisNet.Repository", "GnosisNet.Repository\GnosisNet.Repository.csproj", "{52480CC9-3F16-4382-B960-45C1E74E73E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnosisNet.Entities", "GnosisNet.Entities\GnosisNet.Entities.csproj", "{93E979FF-204B-4F78-93D5-2B200FD28ED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnosisNet.Service", "GnosisNet.Service\GnosisNet.Service.csproj", "{CEB21B8D-0EBC-4155-84F4-3976018F880E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{119DC3DA-C9D6-4312-921B-3BE7B3D43D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119DC3DA-C9D6-4312-921B-3BE7B3D43D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119DC3DA-C9D6-4312-921B-3BE7B3D43D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119DC3DA-C9D6-4312-921B-3BE7B3D43D58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4ED290-E5D1-478D-B025-1D9BB444092A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4ED290-E5D1-478D-B025-1D9BB444092A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4ED290-E5D1-478D-B025-1D9BB444092A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4ED290-E5D1-478D-B025-1D9BB444092A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52480CC9-3F16-4382-B960-45C1E74E73E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52480CC9-3F16-4382-B960-45C1E74E73E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52480CC9-3F16-4382-B960-45C1E74E73E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52480CC9-3F16-4382-B960-45C1E74E73E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E979FF-204B-4F78-93D5-2B200FD28ED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E979FF-204B-4F78-93D5-2B200FD28ED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E979FF-204B-4F78-93D5-2B200FD28ED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E979FF-204B-4F78-93D5-2B200FD28ED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEB21B8D-0EBC-4155-84F4-3976018F880E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEB21B8D-0EBC-4155-84F4-3976018F880E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEB21B8D-0EBC-4155-84F4-3976018F880E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEB21B8D-0EBC-4155-84F4-3976018F880E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{119DC3DA-C9D6-4312-921B-3BE7B3D43D58} = {F8427025-8313-43A6-99DB-AB9686D37892}
+		{CF4ED290-E5D1-478D-B025-1D9BB444092A} = {F8427025-8313-43A6-99DB-AB9686D37892}
+		{52480CC9-3F16-4382-B960-45C1E74E73E5} = {F8427025-8313-43A6-99DB-AB9686D37892}
+		{93E979FF-204B-4F78-93D5-2B200FD28ED1} = {F8427025-8313-43A6-99DB-AB9686D37892}
+		{CEB21B8D-0EBC-4155-84F4-3976018F880E} = {F8427025-8313-43A6-99DB-AB9686D37892}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB9ADC65-A2B1-472E-A3AE-06B9589540D2}
+	EndGlobalSection
+EndGlobal
