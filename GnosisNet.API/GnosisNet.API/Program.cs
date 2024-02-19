@@ -12,7 +12,7 @@ builder.Services.AddDbContext<GnosisDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("Gnosis.Data"));
 }); 
-builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<GnosisDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddApplicationServices();

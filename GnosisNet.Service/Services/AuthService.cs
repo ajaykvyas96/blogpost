@@ -15,10 +15,12 @@ namespace GnosisNet.Service.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly GnosisDbContext _context;
-        public AuthService(UserManager<ApplicationUser> userManager, GnosisDbContext context)
+        private readonly ITokenManagerService _tokenManager;
+        public AuthService(UserManager<ApplicationUser> userManager, GnosisDbContext context, ITokenManagerService tokenManager)
         {
             _userManager = userManager;
             _context = context;
+            _tokenManager = tokenManager;
         }
 
         public Task<bool> AssignRole(string email, string roleName)
@@ -31,7 +33,31 @@ namespace GnosisNet.Service.Services
             var user = _context.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == loginRequest.Email.ToLower());
 
             bool isValid = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
-            throw new NotImplementedException();
+
+            if (user == null || isValid == false)
+            {
+                return new LoginResponseDto() { User = null, Token = "" };
+            }
+
+            //if user was found , Generate JWT Token
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = _tokenManager.GenerateToken(user, roles);
+
+            UserDto userDTO = new()
+            {
+                Email = user.Email,
+                ID = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+            LoginResponseDto loginResponseDto = new LoginResponseDto()
+            {
+                User = userDTO,
+                Token = token
+            };
+
+            return loginResponseDto;
         }
 
         public async Task<string> Register(RegistrationRequestDto registrationRequestDto)

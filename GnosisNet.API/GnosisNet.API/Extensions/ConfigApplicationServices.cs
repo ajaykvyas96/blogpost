@@ -10,6 +10,7 @@ namespace GnosisNet.API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITokenManagerService, TokenManagerService>();
             services.AddScoped<IAuthService, AuthService>();
             return services;
         }
