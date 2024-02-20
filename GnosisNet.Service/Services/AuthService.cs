@@ -31,17 +31,16 @@ namespace GnosisNet.Service.Services
         public async Task<LoginResponseDto> Login(LoginRequestDto loginRequest)
         {
             var user = _context.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == loginRequest.Email.ToLower());
-
-            bool isValid = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
-
-            if (user == null || isValid == false)
+            if (user == null)
             {
-                return new LoginResponseDto() { User = null, Token = "" };
+                return new LoginResponseDto();
             }
-
-            //if user was found , Generate JWT Token
-            var roles = await _userManager.GetRolesAsync(user);
-            var token = _tokenManager.GenerateToken(user, roles);
+            bool isValid = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
+            if (!isValid)
+            {
+                return new LoginResponseDto();
+            }
+            var token = _tokenManager.GenerateToken(user);
 
             UserDto userDTO = new()
             {

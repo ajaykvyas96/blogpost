@@ -1,0 +1,12 @@
+﻿@page "/Blog/{id}"
+@using GnosisNet.Web.IServices
+@inject IBlogService _blogService
+
+<h3>BlogDetail.Component</h3>
+
+<div>
+    <h4>@blog.Title</h4>
+    <p>@blog.PostBody</p>
+    <p>Published Date: @blog.PublishedDate</p>
+    <p>Status: @blog.Status</p>
+</div>

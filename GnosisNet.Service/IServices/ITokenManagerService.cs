@@ -9,6 +9,6 @@ namespace GnosisNet.Service.IServices
 {
     public interface ITokenManagerService
     {
-        string GenerateToken(ApplicationUser applicationUser, IEnumerable<string> roles);
+        string GenerateToken(ApplicationUser applicationUser);
     }
 }

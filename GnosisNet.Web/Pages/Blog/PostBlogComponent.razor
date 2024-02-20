@@ -1,0 +1,31 @@
+﻿@page "/blog/create"
+@using GnosisNet.Web.IServices
+@using GnosisNet.Web.Models.Enums
+@inject IBlogService _blogService
+
+<h3>PostBlogComponent</h3>
+
+<form @onsubmit="HandleSubmit">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" @bind="blog.Title" required />
+    </div>
+    <div class="form-group">
+        <label for="postbody">Post Body</label>
+        <textarea class="form-control" id="postbody" @bind="blog.PostBody" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="publisheddate">Published Date</label>
+        <input type="date" class="form-control" id="publisheddate" @bind="blog.PublishedDate" />
+    </div>
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" @bind="blog.Status">
+            @foreach (var status in Enum.GetValues(typeof(BlogStatusEnum)))
+            {
+                <option value="@status">@status</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

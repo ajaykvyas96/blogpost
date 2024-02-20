@@ -1,0 +1,14 @@
+﻿@page "/logout"
+@using GnosisNet.Web.IServices
+@inject IAuthService _authService
+
+<h3>LogoutComponent</h3>
+
+@code {
+    NavigationManager NavigationManager { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await _authService.Logout();
+        NavigationManager.NavigateTo("/");
+    }
+}
