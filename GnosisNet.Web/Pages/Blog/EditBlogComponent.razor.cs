@@ -1,16 +1,15 @@
 ﻿using GnosisNet.Web.Models;
 using Microsoft.AspNetCore.Components;
-using Telerik.Blazor.Components;
 using Telerik.Blazor.Components.Editor;
+using Telerik.Blazor.Components;
 
 namespace GnosisNet.Web.Pages.Blog
 {
-    public partial class PostBlogComponent
+    public partial class EditBlogComponent
     {
-        private BlogDto blog = new BlogDto()
-        {
-            PostBody = ""
-        };
+        [Parameter]
+        public string Id { get; set; }
+        private BlogDto blog;
         private string errorMessage;
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -27,9 +26,15 @@ namespace GnosisNet.Web.Pages.Blog
             new Telerik.Blazor.Components.Editor.FontSize(),
             new Telerik.Blazor.Components.Editor.FontFamily()
         };
+        protected override async Task OnInitializedAsync()
+        {
+            blog = await _blogService.GetBlogById(Id);
+        }
+
         private async Task HandleSubmit()
         {
-            var response = await _blogService.AddBlog(blog);
+            var response = await _blogService.UpdateBlog(Id, blog);
+
             NavigationManager.NavigateTo("/myblogs");
         }
     }

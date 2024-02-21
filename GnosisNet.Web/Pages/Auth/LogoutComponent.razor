@@ -5,10 +5,11 @@
 <h3>LogoutComponent</h3>
 
 @code {
+    [Inject]
     NavigationManager NavigationManager { get; set; }
     protected override async Task OnInitializedAsync()
     {
         await _authService.Logout();
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/login");
     }
 }

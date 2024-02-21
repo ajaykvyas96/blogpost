@@ -1,0 +1,46 @@
+﻿@page "/Blog/Edit/{id}";
+@using GnosisNet.Web.IServices
+@using GnosisNet.Web.Models.Enums
+@inject IBlogService _blogService
+@using Telerik.Blazor.Components
+@using Telerik.Blazor.Components.Editor
+
+
+@if (blog == null)
+{
+    <div class="spinner-grow"></div>
+}
+else
+{
+    <form @onsubmit="HandleSubmit">
+
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" @bind="blog.Title" required />
+        </div>
+        <div class="form-group">
+            <label for="postbody">Post Body</label>
+            <TelerikEditor @bind-Value="@blog.PostBody"
+                           Tools="@Tools"
+                           Height="450px">
+            </TelerikEditor>
+        </div>
+        <div class="form-group">
+            <label for="publisheddate">Published Date</label>
+            <input type="date" class="form-control" id="publisheddate" @bind="blog.PublishedDate" />
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" id="status" @bind="blog.Status">
+                @foreach (var status in Enum.GetValues(typeof(BlogStatusEnum)))
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+}
+

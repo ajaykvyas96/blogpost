@@ -19,7 +19,7 @@ namespace GnosisNet.Web.Pages.Auth
                 }
                 else
                 {                    
-                    NavigationManager.NavigateTo("/blog");
+                    NavigationManager.NavigateTo("/myblogs");
                 }
             }
             catch (Exception ex)

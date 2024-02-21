@@ -13,6 +13,7 @@ namespace GnosisNet.API.Controllers
         private ResponseDto _response;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IAuthService _authService;
+        
         public AuthController(IWebHostEnvironment hostingEnvironment, IAuthService authService)
         {
             _response = new ResponseDto();

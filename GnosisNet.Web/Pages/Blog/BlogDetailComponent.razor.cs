@@ -10,9 +10,16 @@ namespace GnosisNet.Web.Pages.Blog
         [Parameter]
         public string Id { get; set; }
         private BlogDto blog;
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
         protected override async Task OnInitializedAsync()
         {
             blog = await _blogService.GetBlogById(Id);
+        }
+
+        private void GoBack()
+        {
+            NavigationManager.NavigateTo("/");
         }
     }
 }

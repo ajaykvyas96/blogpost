@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using GnosisNet.Data;
 using GnosisNet.Entities.Entities;
+using GnosisNet.Entities.Entities.Enums;
 using GnosisNet.Repository.Interface;
 using GnosisNet.Service.IServices;
 using GnosisNet.Service.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,59 +18,106 @@ namespace GnosisNet.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly GnosisDbContext _context;
 
-        public BlogService(IUnitOfWork unitOfWork, IMapper mapper)
+        public BlogService(IUnitOfWork unitOfWork, IMapper mapper, GnosisDbContext context)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _context = context;
         }
 
-        public async Task<IEnumerable<BlogDto>> GetAllBlogs()
+        public async Task<ResponseDto<IEnumerable<BlogDto>>> GetAllBlogs()
         {
-            var result = await _unitOfWork.Repository<Blog>().ListAllAsync();
-            var blogs = _mapper.Map<IReadOnlyList<Blog>, List<BlogDto>>(result);
-            return blogs;
+            //var result = await _unitOfWork.Repository<Blog>().ListAllAsync();
+            //var blogs = _mapper.Map<IReadOnlyList<Blog>, List<BlogDto>>(result);
+            var blogs = await _context.Blogs
+                .Include(b => b.User)
+                .Where(b => b.Status == BlogStatusEnum.Published)
+                .Select(b => new BlogDto
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    PostBody = b.PostBody,
+                    PublishedDate = b.PublishedDate,
+                    PublishedBy = b.User.FirstName + " " + b.User.LastName
+                })
+                .ToListAsync();
+            return new ResponseDto<IEnumerable<BlogDto>>()
+            {
+                Result = blogs
+            };
         }
 
-        public async Task<BlogDto> GetBlogById(Guid id)
+        public async Task<ResponseDto<BlogDto>> GetBlogById(Guid id)
         {
             var existingBlog = await _unitOfWork.Repository<Blog>().GetByIdAsync(id);
-            var blog = _mapper.Map<Blog, BlogDto> (existingBlog);
-            return blog;
+            var blog = _mapper.Map<Blog, BlogDto>(existingBlog);
+            return new ResponseDto<BlogDto>()
+            {
+                Result = blog
+            };
         }
 
-        public async Task<BlogDto> AddBlog(BlogDto blogDto)
+        public async Task<ResponseDto<BlogDto>> AddBlog(BlogDto blogDto)
         {
             var blog = _mapper.Map<BlogDto, Blog>(blogDto);
             blog.CreatedBy = "Admin";
             await _unitOfWork.Repository<Blog>().AddAsync(blog, "");
-            await _unitOfWork.Complete();
-            return blogDto;
+            return new ResponseDto<BlogDto>()
+            {
+                Result = blogDto,
+                Message = "Blog created successfully"
+            };
         }
 
-        public async Task<BlogDto> UpdateBlog(Guid id, BlogDto blog)
+        public async Task<ResponseDto<BlogDto>> UpdateBlog(Guid id, BlogDto blogDto)
         {
             var existingBlog = await _unitOfWork.Repository<Blog>().GetByIdAsync(id);
             if (existingBlog != null)
             {
-                existingBlog.Title = blog.Title;
-                existingBlog.PostBody = blog.PostBody;
-                existingBlog.Status = blog.Status;
+                existingBlog.Title = blogDto.Title;
+                existingBlog.PostBody = blogDto.PostBody;
+                existingBlog.Status = blogDto.Status;
                 await _unitOfWork.Repository<Blog>().UpdateAsync(existingBlog, "Admin");
-                await _unitOfWork.Complete();
-                return blog;
+                return new ResponseDto<BlogDto>()
+                {
+                    Result = blogDto,
+                    Message = "Blog updated successfully"
+                };
             }
             else
             {
-                return null;
+                return new ResponseDto<BlogDto>() { Message = "No record found", IsSuccess = false };
             }
         }
 
-        public async Task<bool> DeleteBlog(Guid id)
+        public async Task<ResponseDto<bool>> DeleteBlog(Guid id)
         {
             var existingBlog = await _unitOfWork.Repository<Blog>().GetByIdAsync(id);
-            await _unitOfWork.Repository<Blog>().DeleteAsync(existingBlog, "Admin");
-            return true;
+            if (existingBlog != null)
+            {
+                await _unitOfWork.Repository<Blog>().DeleteAsync(existingBlog, "Admin");
+                return new ResponseDto<bool>()
+                {
+                    Message = "Records has been deleted succefully",
+                    Result = true
+                }; 
+            }
+            else
+            {
+                return new ResponseDto<bool>() { IsSuccess = false, Message = "No Record found" };
+            }
+        }
+
+        public async Task<ResponseDto<List<BlogDto>>> GetBlogsByUser(string id)
+        {
+            var blogs = await _unitOfWork.Repository<Blog>().Query(x => x.CreatedBy == id);
+            var blogsList = _mapper.Map<IReadOnlyList<Blog>, List<BlogDto>>(blogs.ToList());
+            return new ResponseDto<List<BlogDto>>()
+            {
+                Result = blogsList
+            };
         }
     }
 }

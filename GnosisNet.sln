@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GnosisNet.Service", "Gnosis
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{0EF3D248-CEA9-4349-A6EB-620C343684B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnosisNet.Web", "GnosisNet.Web\GnosisNet.Web.csproj", "{D1EF68E2-759E-4C86-BB1F-B168968CD964}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GnosisNet.Web", "GnosisNet.Web\GnosisNet.Web.csproj", "{D1EF68E2-759E-4C86-BB1F-B168968CD964}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

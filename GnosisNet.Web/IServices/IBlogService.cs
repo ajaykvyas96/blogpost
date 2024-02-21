@@ -7,7 +7,8 @@ namespace GnosisNet.Web.IServices
         Task<List<BlogDto>> GetAllBlogs();
         Task<BlogDto> GetBlogById(string id);
         Task<ResponseDto> AddBlog(BlogDto blogDto);
-        Task<BlogDto> UpdateBlog(Guid id, BlogDto blog);
-        Task<bool> DeleteBlog(Guid id);
+        Task<BlogDto> UpdateBlog(string id, BlogDto blog);
+        Task<bool> DeleteBlog(string id);
+        Task<List<BlogDto>> GetBlogsByUser();
     }
 }

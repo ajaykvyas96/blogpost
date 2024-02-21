@@ -10,10 +10,11 @@ namespace GnosisNet.Service.IServices
 {
     public interface IBlogService
     {
-        Task<IEnumerable<BlogDto>> GetAllBlogs();
-        Task<BlogDto> GetBlogById(Guid id);
-        Task<BlogDto> AddBlog(BlogDto blogDto);
-        Task<BlogDto> UpdateBlog(Guid id, BlogDto blog);
-        Task<bool> DeleteBlog(Guid id);
+        Task<ResponseDto<IEnumerable<BlogDto>>> GetAllBlogs();
+        Task<ResponseDto<BlogDto>> GetBlogById(Guid id);
+        Task<ResponseDto<BlogDto>> AddBlog(BlogDto blogDto);
+        Task<ResponseDto<BlogDto>> UpdateBlog(Guid id, BlogDto blog);
+        Task<ResponseDto<bool>> DeleteBlog(Guid id);
+        Task<ResponseDto<List<BlogDto>>> GetBlogsByUser(string id);
     }
 }

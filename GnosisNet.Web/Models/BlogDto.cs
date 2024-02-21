@@ -11,6 +11,7 @@ namespace GnosisNet.Web.Models
         [Required]
         public string PostBody { get; set; }
         public DateTime? PublishedDate { get; set; }
+        public string? PublishedBy { get; set; }
         public BlogStatusEnum Status { get; set; }
     }
 }

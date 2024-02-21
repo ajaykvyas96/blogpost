@@ -20,6 +20,11 @@ namespace GnosisNet.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Blog>()
+            .HasOne(b => b.User)
+            .WithMany()
+            .HasForeignKey(b => b.CreatedBy); // Assuming CreatedBy is the foreign key column name
+
             base.OnModelCreating(modelBuilder);
         }
         public virtual async Task<int> SaveChangesAsync(string userId = null!)
@@ -35,12 +40,14 @@ namespace GnosisNet.Data
                         case EntityState.Added:
                             entity.CreatedOn = DateTime.Now.ToUniversalTime();
                             entity.UpdatedOn = DateTime.Now.ToUniversalTime();
+                            entity.CreatedBy = userId;
                             entity.IsActive = true;
                             break;
 
                         case EntityState.Modified:
                             Entry(entity).Property(x => x.UpdatedOn).IsModified = false;
                             entity.UpdatedOn = DateTime.Now.ToUniversalTime();
+                            entity.UpdatedBy = userId;
                             break;
                     }
                 }

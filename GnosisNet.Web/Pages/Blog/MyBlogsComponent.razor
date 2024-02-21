@@ -1,0 +1,46 @@
+﻿@page "/myblogs"
+@using GnosisNet.Web.Extensions
+@using GnosisNet.Web.IServices
+@using GnosisNet.Web.Models.Enums
+@inject IBlogService _blogService
+
+<div class="row mb-5">
+    <div>
+        <button @onclick="NavigateToCreateBlog">Post Something</button>
+    </div>
+</div>
+
+@if (blogs == null || blogs.Count == 0)
+{
+
+}
+else
+{
+    @foreach (var blog in blogs)
+    {
+        <div class="row">
+            <div class="card">
+                <div class="card-title"><b>@blog.Title</b></div>
+                <div class="card-header-tabs"><small>@blog.PublishedDate</small></div>
+                <div class="card-body truncate">@((MarkupString)blog.PostBody)</div>
+
+                <div class="card-footer">
+                    <a href="javascript:void(0);" @onclick="() => NavigateToFullPost(blog.Id)">Read more</a>
+                    @if (blog.Status != BlogStatusEnum.Published)
+                    {
+                        <a class="ml-5" href="javascript:void(0);" @onclick="() => NavigateToEditPost(blog.Id)">Edit</a>
+                    }
+                </div>
+                <div class="card-footer">
+                    <i class="fa-regular fa-comment"></i>
+                    <i class="fa-regular fa-heart" style="margin-left: 5px"></i>
+                    <i class="fa-regular fa-share" style="margin-left: 5px"></i>
+                    <i class="fa-regular fa-bookmark" style="margin-left: 5px"></i>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+    }
+}
+

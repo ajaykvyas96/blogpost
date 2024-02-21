@@ -3,6 +3,7 @@ using GnosisNet.Web.Models;
 using GnosisNet.Web.Models.Enums;
 using Newtonsoft.Json;
 using System;
+using System.Reflection.Metadata;
 
 namespace GnosisNet.Web.Services
 {
@@ -26,7 +27,7 @@ namespace GnosisNet.Web.Services
             return result;
         }
 
-        public Task<bool> DeleteBlog(Guid id)
+        public Task<bool> DeleteBlog(string id)
         {
             throw new NotImplementedException();
         }
@@ -61,9 +62,34 @@ namespace GnosisNet.Web.Services
             return new BlogDto();
         }
 
-        public Task<BlogDto> UpdateBlog(Guid id, BlogDto blog)
+        public async Task<BlogDto> UpdateBlog(string id, BlogDto blog)
         {
-            throw new NotImplementedException();
+            var blogResponse = await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = ApiType.PUT,
+                Url = "api/Blog/" + id,
+                Data = blog
+            });
+            if (blogResponse.IsSuccess)
+            {
+                var blogResult = JsonConvert.DeserializeObject<BlogDto>(blogResponse?.Result.ToString());
+                return blogResult;
+            }
+            return new BlogDto();
+        }
+        public async Task<List<BlogDto>> GetBlogsByUser()
+        {
+            var blogResponse = await _baseService.SendAsync(new RequestDto
+            {
+                ApiType = ApiType.GET,
+                Url = "api/Blog/getblogsbyuser"
+            });
+            if (blogResponse.IsSuccess)
+            {
+                var blogResult = JsonConvert.DeserializeObject<List<BlogDto>>(blogResponse?.Result.ToString());
+                return blogResult;
+            }
+            return new List<BlogDto>();
         }
     }
 }

@@ -2,8 +2,10 @@
 @using GnosisNet.Web.IServices
 @using GnosisNet.Web.Models.Enums
 @inject IBlogService _blogService
+@using Telerik.Blazor.Components
+@using Telerik.Blazor.Components.Editor
 
-<h3>PostBlogComponent</h3>
+<h4>Share your thoughts/news etc..</h4>
 
 <form @onsubmit="HandleSubmit">
     <div class="form-group">
@@ -12,7 +14,10 @@
     </div>
     <div class="form-group">
         <label for="postbody">Post Body</label>
-        <textarea class="form-control" id="postbody" @bind="blog.PostBody" required></textarea>
+        <TelerikEditor @bind-Value="@blog.PostBody"
+                       Tools="@Tools"
+                       Height="450px">
+        </TelerikEditor>
     </div>
     <div class="form-group">
         <label for="publisheddate">Published Date</label>

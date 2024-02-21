@@ -23,6 +23,8 @@ namespace GnosisNet.API.Extensions
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(typeof(MappingConfig));
+            services.AddHttpContextAccessor();
+
             return services;
         }
     }

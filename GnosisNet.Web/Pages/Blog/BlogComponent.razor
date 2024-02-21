@@ -1,11 +1,11 @@
-﻿@page "/Blog";
+﻿@page "/";
 @using GnosisNet.Web.IServices
 @inject IBlogService _blogService
-<h3>BlogComponent</h3>
+
 
 @if (blogs == null || blogs.Count == 0)
 {
-    
+    <div class="spinner-border"></div>
 }
 else
 {
@@ -13,14 +13,20 @@ else
     {
         <div class="row">
             <div class="card">
-                <div class="card-header">@blog.Title <small>@blog.PublishedDate</small></div>
-                <div class="card-body">@blog.PostBody</div>
-                <a ></a>
+                <div class="card-header">
+                    <b>@blog.Title</b>
+                </div>
+                <div class="card-subtitle">
+                    <small>Published On: @blog.PublishedDate</small>
+                    <small>Published By: @blog.PublishedBy</small>
+                </div>
+                <div class="card-body">@((MarkupString)blog.PostBody)</div>
+                <a></a>
                 <div class="card-footer">
-                    <a href="javascript:void(0);" @onclick="() => NavigateToFullPost(blog.Id)">Readmore</a>
+                    <a href="javascript:void(0);" @onclick="() => NavigateToFullPost(blog.Id)">Read more</a>
                 </div>
             </div>
         </div>
+        <br/> <br />
     }
 }
-

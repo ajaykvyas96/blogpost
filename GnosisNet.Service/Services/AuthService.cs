@@ -16,6 +16,7 @@ namespace GnosisNet.Service.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly GnosisDbContext _context;
         private readonly ITokenManagerService _tokenManager;
+        
         public AuthService(UserManager<ApplicationUser> userManager, GnosisDbContext context, ITokenManagerService tokenManager)
         {
             _userManager = userManager;
@@ -24,6 +25,11 @@ namespace GnosisNet.Service.Services
         }
 
         public Task<bool> AssignRole(string email, string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetCurrentUser()
         {
             throw new NotImplementedException();
         }

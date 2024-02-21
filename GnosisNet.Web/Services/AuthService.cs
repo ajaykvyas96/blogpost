@@ -33,7 +33,7 @@ namespace GnosisNet.Web.Services
             {
                 var loginResponse = JsonConvert.DeserializeObject<LoginResponseDto>(apiResponse?.Result.ToString());
                 await _localStorage.SetItem(ClientConstantKeys.JwtToken, loginResponse.Token);
-                ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginResponse.User.Email);
+                ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated();
                 return loginResponse;
             }
             return new LoginResponseDto();

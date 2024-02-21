@@ -1,4 +1,5 @@
 ﻿using GnosisNet.Entities.Entities.Enums;
+using GnosisNet.Entities.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +22,6 @@ namespace GnosisNet.Entities.Entities
         public DateTime? PublishedDate { get; set; }
         [Column("status")]
         public BlogStatusEnum Status { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

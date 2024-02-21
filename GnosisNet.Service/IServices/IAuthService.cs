@@ -12,5 +12,6 @@ namespace GnosisNet.Service.IServices
         Task<string> Register(RegistrationRequestDto registrationRequestDto);
         Task<LoginResponseDto> Login(LoginRequestDto login);
         Task<bool> AssignRole(string email, string roleName);
+        Task<string> GetCurrentUser();
     }
 }

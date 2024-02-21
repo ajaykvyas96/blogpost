@@ -18,10 +18,10 @@ namespace GnosisNet.Entities.Entities
         [Column("createdon"), DataType(DataType.Date), Required]
         public DateTime CreatedOn { get; set; }
 
-        [Column("createdby"), Required, StringLength(100)]
+        [Column("createdby"), Required, StringLength(450)]
         public string CreatedBy { get; set; }
 
-        [Column("updatedby")]
+        [Column("updatedby"), StringLength(450)]
         public string? UpdatedBy { get; set; }
 
         [Column("updatedon")]

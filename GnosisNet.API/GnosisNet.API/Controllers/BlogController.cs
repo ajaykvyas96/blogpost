@@ -1,5 +1,7 @@
 ﻿using Azure;
+using GnosisNet.API.Extensions;
 using GnosisNet.Entities.Entities;
+using GnosisNet.Repository.Interface;
 using GnosisNet.Service.IServices;
 using GnosisNet.Service.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -14,40 +16,36 @@ namespace GnosisNet.API.Controllers
     [ApiController]
     public class BlogController : ControllerBase
     {
-        private ResponseDto _response;
         private readonly IBlogService _blogService;
-        public BlogController(IBlogService blogService, ResponseDto response)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public BlogController(IBlogService blogService, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _blogService = blogService;
-            _response = response;
-
+            _unitOfWork = unitOfWork;
+            _httpContextAccessor = httpContextAccessor;
         }
         // GET: /api/blog
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var blog = await _blogService.GetAllBlogs();
-            if(blog == null)
-            {
-                return NotFound();
-            }
-            _response.Result = blog;
-            _response.IsSuccess = true;
-            return Ok(_response);
+            return Ok(await _blogService.GetAllBlogs());
         }
 
         // GET: /api/blog/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var blog = await _blogService.GetBlogById(id);
-            if (blog == null)
-            {
-                return NotFound();
-            }
-            _response.Result = blog;
-            _response.IsSuccess = true;
-            return Ok(_response);
+            return Ok(await _blogService.GetBlogById(id));
+        }
+        // GET: /api/blog/{id}
+        [HttpGet("getblogsbyuser")]
+        [Authorize]
+        public async Task<IActionResult> GetBlogsByUser()
+        {
+            string? userid = _httpContextAccessor?.HttpContext?.GetCurrentUserId();
+            return Ok(await _blogService.GetBlogsByUser(userid));
         }
 
         // POST: /api/blog
@@ -56,10 +54,12 @@ namespace GnosisNet.API.Controllers
         public async Task<IActionResult> Post([FromBody] BlogDto blog)
         {
             var result = await _blogService.AddBlog(blog);
-            _response.Result = result;
-            _response.IsSuccess = true;
-            _response.Message = "Blog created successfully.";
-            return Ok(_response);
+            if(result.IsSuccess)
+            {
+                string? userid = _httpContextAccessor?.HttpContext?.GetCurrentUserId();
+                await _unitOfWork.Complete(userid);
+            }
+            return Ok(result);
         }
 
         // PUT: /api/blog/{id}
@@ -68,14 +68,12 @@ namespace GnosisNet.API.Controllers
         public async Task<IActionResult> Put(Guid id, [FromBody] BlogDto blog)
         {
             var result = await _blogService.UpdateBlog(id, blog);
-            if (result == null)
+            if (result.IsSuccess)
             {
-                return NotFound();
+                string? userid = _httpContextAccessor?.HttpContext?.GetCurrentUserId();
+                await _unitOfWork.Complete(userid);
             }
-            _response.Result = result;
-            _response.IsSuccess = true;
-            _response.Message = "Blog updated successfully.";
-            return Ok(_response);
+            return Ok(result);
         }
 
         // DELETE: /api/blog/{id}
@@ -84,14 +82,12 @@ namespace GnosisNet.API.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _blogService.DeleteBlog(id);
-            if (result == null)
+            if (result.IsSuccess)
             {
-                return NotFound();
+                string? userid = _httpContextAccessor?.HttpContext?.GetCurrentUserId();
+                await _unitOfWork.Complete(userid);
             }
-            _response.Result = result;
-            _response.IsSuccess = true;
-            _response.Message = "Blog deleted successfully.";
-            return Ok(_response);
+            return Ok(result);
         }
     }
 }
