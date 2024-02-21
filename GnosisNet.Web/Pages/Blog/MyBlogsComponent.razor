@@ -22,8 +22,8 @@ else
     {
         <div class="row">
             <div class="card">
-                <div class="card-title"><b>@blog.Title</b></div>
-                <div class="card-header-tabs"><small>@blog.PublishedDate</small></div>
+                <div class="card-header"><b>@blog.Title</b></div>
+                <div class="card-subtitle"><small>@blog.PublishedDate</small></div>
                 <div class="card-body truncate">@((MarkupString)blog.PostBody)</div>
 
                 <div class="card-footer">
@@ -36,12 +36,6 @@ else
                             <a class="ml-5" href="javascript:void(0);" @onclick="() => NavigateToEditPost(blog.Id)">Edit</a>
                         </div>
                     }
-                </div>
-                <div class="card-footer">
-                    <i class="fa-regular fa-comment"></i>
-                    <i class="fa-regular fa-heart" style="margin-left: 5px"></i>
-                    <i class="fa-regular fa-share" style="margin-left: 5px"></i>
-                    <i class="fa-regular fa-bookmark" style="margin-left: 5px"></i>
                 </div>
             </div>
         </div>

@@ -111,3 +111,43 @@ code {
     text-overflow: ellipsis;
     height: 90px;
 }
+
+.card .card-header {
+    padding: 17px 0px 10px 0px;
+    font-size: 20px;
+    line-height: normal;
+    border-color: rgb(0 0 0 / 23%);
+}
+.card .card-subtitle {
+    padding: 15px 0px 0px 0px;
+}
+    .card .card-subtitle span {
+        color: #000;
+        font-size: 14px;
+        padding: 0px 30px 0px 0px;
+    }
+.card .card-subtitle small{
+    font-weight: 700;
+    color: #808080ad;
+}
+.card .card-body {
+    padding: 20px 0px;
+    font-size:14px;
+    line-height:normal;
+}
+    .card-footer {
+        padding: 10px 0px;
+        border-color: rgb(0 0 0 / 23%);
+    }
+.card {
+    border: 1px solid rgb(0 0 0 / 23%);
+    margin-bottom: 30px;
+    padding:0px 20px;
+}
+.card-footer  a{
+    font-size: 14px;
+    text-decoration: none;
+}
+.card-footer .icon {
+    margin: 10px 0px 0px 0px;
+}
