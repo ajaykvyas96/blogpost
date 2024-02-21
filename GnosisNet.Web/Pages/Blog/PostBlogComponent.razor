@@ -2,8 +2,10 @@
 @using GnosisNet.Web.IServices
 @using GnosisNet.Web.Models.Enums
 @inject IBlogService _blogService
+@using Microsoft.AspNetCore.Authorization
 @using Telerik.Blazor.Components
 @using Telerik.Blazor.Components.Editor
+@attribute [Authorize]
 
 <h4>Share your thoughts/news etc..</h4>
 
@@ -33,4 +35,5 @@
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
+    <button class="btn btn-link" @onclick="GoBack">Back</button>
 </form>

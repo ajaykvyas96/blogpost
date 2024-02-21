@@ -34,7 +34,10 @@ namespace GnosisNet.Web.Pages.Blog
         private async Task HandleSubmit()
         {
             var response = await _blogService.UpdateBlog(Id, blog);
-
+            NavigationManager.NavigateTo("/myblogs");
+        }
+        private void GoBack()
+        {
             NavigationManager.NavigateTo("/myblogs");
         }
     }

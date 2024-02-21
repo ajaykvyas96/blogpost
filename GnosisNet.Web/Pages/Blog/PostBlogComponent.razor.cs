@@ -32,5 +32,9 @@ namespace GnosisNet.Web.Pages.Blog
             var response = await _blogService.AddBlog(blog);
             NavigationManager.NavigateTo("/myblogs");
         }
+        private void GoBack()
+        {
+            NavigationManager.NavigateTo("/myblogs");
+        }
     }
 }

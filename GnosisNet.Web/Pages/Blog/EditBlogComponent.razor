@@ -2,8 +2,10 @@
 @using GnosisNet.Web.IServices
 @using GnosisNet.Web.Models.Enums
 @inject IBlogService _blogService
+@using Microsoft.AspNetCore.Authorization
 @using Telerik.Blazor.Components
 @using Telerik.Blazor.Components.Editor
+@attribute [Authorize]
 
 
 @if (blog == null)
@@ -40,6 +42,7 @@ else
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
+        <button class="btn btn-link" @onclick="GoBack">Back</button>
     </form>
 
 }
