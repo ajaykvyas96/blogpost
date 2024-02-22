@@ -11,14 +11,17 @@
 }
 
 
-<form @onsubmit="HandleSubmit">
+<EditForm Model="loginModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" @bind="loginModel.Email" required />
+        <input type="text" class="form-control" id="username" @bind="loginModel.Email" />
+        <ValidationMessage For="@(() => loginModel.Email)" />
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" @bind="loginModel.Password" required />
+        <input type="password" class="form-control" id="password" @bind="loginModel.Password" />
+        <ValidationMessage For="@(() => loginModel.Password)" />
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
-</form>
+</EditForm>

@@ -10,22 +10,27 @@
     </div>
 }
 
-<form @onsubmit="HandleSubmit">
+<EditForm Model="@registrationModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
     <div class="form-group">
         <label for="firstname">Firstname</label>
-        <input type="text" class="form-control" id="firstname" @bind="registrationModel.FirstName" required />
+        <input type="text" class="form-control" id="firstname" @bind="registrationModel.FirstName" />
+        <ValidationMessage For="@(() => registrationModel.FirstName)" />
     </div>
     <div class="form-group">
         <label for="lastname">Lastname</label>
-        <input type="text" class="form-control" id="lastname" @bind="registrationModel.LastName" required />
+        <input type="text" class="form-control" id="lastname" @bind="registrationModel.LastName" />
+        <ValidationMessage For="@(() => registrationModel.LastName)" />
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" @bind="registrationModel.Email" required />
+        <input type="email" class="form-control" id="email" @bind="registrationModel.Email" />
+        <ValidationMessage For="@(() => registrationModel.Email)" />
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" @bind="registrationModel.Password" required />
+        <input type="password" class="form-control" id="password" @bind="registrationModel.Password" />
+        <ValidationMessage For="@(() => registrationModel.Password)" />
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
-</form>
+</EditForm>

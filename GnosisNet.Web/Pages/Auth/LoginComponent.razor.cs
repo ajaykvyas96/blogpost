@@ -14,11 +14,12 @@ namespace GnosisNet.Web.Pages.Auth
             try
             {
                 var loginResponse = await _authService.Login(loginModel);
-                if(loginResponse.Token == null)
+                if (!loginResponse.IsSuccess)
                 {
+                    errorMessage = loginResponse.Message;
                 }
                 else
-                {                    
+                {
                     NavigationManager.NavigateTo("/myblogs");
                 }
             }

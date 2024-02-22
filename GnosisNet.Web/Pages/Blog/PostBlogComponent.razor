@@ -9,10 +9,18 @@
 
 <h4>Share your thoughts/news etc..</h4>
 
-<form @onsubmit="HandleSubmit">
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
+<EditForm Model="@blog" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" @bind="blog.Title" required />
+        <input type="text" class="form-control" id="title" @bind="blog.Title" />
+        <ValidationMessage For="@(() => blog.Title)" />
     </div>
     <div class="form-group">
         <label for="postbody">Post Body</label>
@@ -20,6 +28,7 @@
                        Tools="@Tools"
                        Height="450px">
         </TelerikEditor>
+        <ValidationMessage For="@(() => blog.PostBody)" />
     </div>
     <div class="form-group">
         <label for="publisheddate">Published Date</label>
@@ -36,4 +45,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
     <button class="btn btn-link" @onclick="GoBack">Back</button>
-</form>
+</EditForm>

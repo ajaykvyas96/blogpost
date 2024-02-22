@@ -21,22 +21,26 @@ namespace GnosisNet.Web.Services
             _authenticationStateProvider = authenticationStateProvider;
 
         }
-        public async Task<LoginResponseDto> Login(LoginRequestDto loginRequest)
+        public async Task<ResponseDto<LoginResponseDto>> Login(LoginRequestDto loginRequest)
         {
+            var loginResponse = new ResponseDto<LoginResponseDto>();
             var apiResponse = await _baseService.SendAsync(new RequestDto
             {
                 Url = "api/Auth/login",
                 ApiType = ApiType.POST,
                 Data = loginRequest
             }, false);
+            loginResponse.IsSuccess = apiResponse.IsSuccess;
+            loginResponse.Message = apiResponse.Message;
             if (apiResponse.IsSuccess)
             {
-                var loginResponse = JsonConvert.DeserializeObject<LoginResponseDto>(apiResponse?.Result.ToString());
-                await _localStorage.SetItem(ClientConstantKeys.JwtToken, loginResponse.Token);
+                var loginResponseDto = JsonConvert.DeserializeObject<LoginResponseDto>(apiResponse?.Result.ToString());
+                loginResponse.Result = loginResponseDto;
+                await _localStorage.SetItem(ClientConstantKeys.JwtToken, loginResponseDto.Token);
                 ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated();
-                return loginResponse;
+                
             }
-            return new LoginResponseDto();
+            return loginResponse;
         }
 
         public async Task Logout()
