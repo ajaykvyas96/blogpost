@@ -5,7 +5,7 @@ namespace GnosisNet.Web.IServices
     public interface IAuthService
     {
         Task<ResponseDto> Register(RegistrationRequestDto registrationRequestDto);
-        Task<LoginResponseDto> Login(LoginRequestDto login);
+        Task<ResponseDto<LoginResponseDto>> Login(LoginRequestDto login);
         Task Logout();
     }
 }
