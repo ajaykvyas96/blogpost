@@ -2,7 +2,9 @@
 @using GnosisNet.Web.IServices
 @inject IAuthService _authService
 
-<h3>RegistrationComponent</h3>
+
+<div class="col-md-6 offset-3 form-sec">
+<h3>Registration</h3>
 @if (errorMessage != null)
 {
     <div class="alert alert-danger" role="alert">
@@ -33,4 +35,6 @@
         <ValidationMessage For="@(() => registrationModel.Password)" />
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
+    <NavLink href="login" class="ml-5">existing user?</NavLink>
 </EditForm>
+</div>

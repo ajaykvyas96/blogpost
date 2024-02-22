@@ -2,26 +2,31 @@
 @using GnosisNet.Web.IServices
 @inject IAuthService _authService
 
-<h3>LoginComponent</h3>
-@if (errorMessage != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @errorMessage
-    </div>
-}
+
+<div class="col-md-6 offset-3 form-sec">
+    <h3>Login</h3>
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
 
 
-<EditForm Model="loginModel" OnValidSubmit="HandleSubmit">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" @bind="loginModel.Email" />
-        <ValidationMessage For="@(() => loginModel.Email)" />
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" @bind="loginModel.Password" />
-        <ValidationMessage For="@(() => loginModel.Password)" />
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</EditForm>
+
+    <EditForm Model="loginModel" OnValidSubmit="HandleSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" @bind="loginModel.Email" />
+            <ValidationMessage For="@(() => loginModel.Email)" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" @bind="loginModel.Password" />
+            <ValidationMessage For="@(() => loginModel.Password)" />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <NavLink href="register" class="ml-5">new user?</NavLink>
+    </EditForm>
+</div>

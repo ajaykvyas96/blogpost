@@ -7,7 +7,8 @@
 @using Telerik.Blazor.Components.Editor
 @attribute [Authorize]
 
-<h4>Share your thoughts/news etc..</h4>
+<div class="col-md-6 offset-3 form-sec">
+<h3>Share your thoughts/news etc..</h3>
 
 @if (errorMessage != null)
 {
@@ -46,3 +47,4 @@
     <button type="submit" class="btn btn-primary">Create</button>
     <button class="btn btn-link" @onclick="GoBack">Back</button>
 </EditForm>
+</div>

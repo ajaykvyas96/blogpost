@@ -1,10 +1,18 @@
-﻿@layout TelerikLayout
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@layout TelerikLayout
 @inherits LayoutComponentBase
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
+    <CascadingAuthenticationState>
+        <AuthorizeView>
+            <Authorized>
+                <div class="sidebar">
+                    <NavMenu />
+                </div>
+            </Authorized>
+            <NotAuthorized>
+            </NotAuthorized>
+        </AuthorizeView>
+    </CascadingAuthenticationState>
     <main>
         <div class="top-row px-4">
             <AuthLayout />

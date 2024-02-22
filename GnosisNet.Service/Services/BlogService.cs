@@ -2,6 +2,7 @@
 using GnosisNet.Data;
 using GnosisNet.Entities.Entities;
 using GnosisNet.Entities.Entities.Enums;
+using GnosisNet.Entities.Entities.Identity;
 using GnosisNet.Repository.Interface;
 using GnosisNet.Service.IServices;
 using GnosisNet.Service.Models;
@@ -52,7 +53,9 @@ namespace GnosisNet.Service.Services
         public async Task<ResponseDto<BlogDto>> GetBlogById(Guid id)
         {
             var existingBlog = await _unitOfWork.Repository<Blog>().GetByIdAsync(id);
+            var user  = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == existingBlog.CreatedBy);
             var blog = _mapper.Map<Blog, BlogDto>(existingBlog);
+            blog.PublishedBy = user.FirstName + " " + user.LastName;
             return new ResponseDto<BlogDto>()
             {
                 Result = blog
