@@ -34,6 +34,10 @@
     <div class="form-group">
         <label for="publisheddate">Published Date</label>
         <input type="date" class="form-control" id="publisheddate" @bind="blog.PublishedDate" />
+        @* <BlazoredDatePicker @bind-Value="@blog.PublishedDate"></BlazoredDatePicker> *@
+            @* <TelerikDatePicker @bind-Value="blog.PublishedDate"
+                               Format="dd MMMM yyyy">
+            </TelerikDatePicker> *@
     </div>
     <div class="form-group">
         <label for="status">Status</label>

@@ -11,7 +11,7 @@ namespace GnosisNet.Web.Models
         public string Title { get; set; }
         [Required(ErrorMessage = "Post is required")]
         public string PostBody { get; set; }
-        public DateTime? PublishedDate { get; set; }
+        public DateTime PublishedDate { get; set; }
         public string? PublishedBy { get; set; }
         public BlogStatusEnum Status { get; set; }
     }

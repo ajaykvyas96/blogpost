@@ -42,7 +42,7 @@ namespace GnosisNet.Service.Services
                     PostBody = b.PostBody,
                     PublishedDate = b.PublishedDate,
                     PublishedBy = b.User.FirstName + " " + b.User.LastName
-                })
+                }).OrderByDescending(x => x.PublishedDate)
                 .ToListAsync();
             return new ResponseDto<IEnumerable<BlogDto>>()
             {
@@ -117,6 +117,7 @@ namespace GnosisNet.Service.Services
         {
             var blogs = await _unitOfWork.Repository<Blog>().Query(x => x.CreatedBy == id);
             var blogsList = _mapper.Map<IReadOnlyList<Blog>, List<BlogDto>>(blogs.ToList());
+            blogsList = blogsList.OrderByDescending(x => x.PublishedDate).ToList();
             return new ResponseDto<List<BlogDto>>()
             {
                 Result = blogsList
